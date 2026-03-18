@@ -1,6 +1,18 @@
 version: "3.8"
 
 services:
+  npm:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx_proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "81:81"     # Admin panel
+      - "443:443"
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+
   strapi:
     image: strapi/strapi:latest
     container_name: strapi_app
@@ -17,8 +29,8 @@ services:
       - ./app:/srv/app
     depends_on:
       - db
-    ports:
-      - "1337:1337"
+    expose:
+      - "1337"
 
   db:
     image: postgres:15

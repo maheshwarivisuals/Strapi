@@ -1,58 +1,72 @@
-# Strapi Docker Deploy 🚀
+# 🚀 Strapi Auto SSL Deployment (Docker)
 
-Production-ready Strapi CMS using Docker + PostgreSQL + Nginx
+Production-ready Strapi CMS with:
+- Auto SSL (Let's Encrypt)
+- Dockerized Nginx Proxy Manager
+- PostgreSQL
 
-## 📦 Setup
+---
+
+## ⚡ Quick Deploy
 
 ### 1. Clone repo
-git clone https://github.com/YOUR_USERNAME/strapi-docker-deploy.git
-cd strapi-docker-deploy
+git clone https://github.com/maheshwarivisuals/strapi
+cd strapi-auto-ssl
 
-### 2. Setup environment
-cp .env.example .env
+### 2. Setup env
+cp 1.env .env
 nano .env
 
-### 3. Start containers
+### 3. Run
 docker compose up -d
 
-### 4. Open Strapi
-http://YOUR_SERVER_IP:1337/admin
+---
+
+## 🌐 Access
+
+Nginx Proxy Manager:
+http://YOUR_SERVER_IP:81
+
+Default login:
+admin@example.com
+changeme
 
 ---
 
-## 🌐 Domain Setup
+## 🔗 Connect Domain
 
-Edit nginx/default.conf:
-Replace:
-blog.maheshwarivisuals.com
+1. Login to Nginx Proxy Manager
+2. Go to "Proxy Hosts"
+3. Add new:
+   - Domain: blog.maheshwarivisuals.com
+   - Forward Host: strapi_app
+   - Port: 1337
 
-Then restart:
-docker compose restart
+4. Enable:
+   ✅ Websockets
+   ✅ Block Common Exploits
 
----
+5. SSL Tab:
+   ✅ Request new SSL
+   ✅ Force HTTPS
 
-## 🔒 SSL (Recommended)
-
-sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d yourdomain.com
-
----
-
-## 📊 Services
-
-- Strapi CMS → Port 1337
-- PostgreSQL → Internal
-- Nginx → Reverse Proxy
+DONE 🎉
 
 ---
 
-## ⚡ Production Tips
+## ⚠️ Important
 
-- Change DB password
-- Use strong secrets
-- Enable firewall
-- Backup DB regularly
+- Change default login immediately
+- Use strong DB password
+- Backup volumes regularly
 
 ---
 
-Made for fast deployment 💻
+## 🧠 Notes
+
+Strapi runs internally, not exposed publicly.
+Only Nginx handles traffic + SSL.
+
+---
+
+Built for fast production deployment 🚀
